@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Little Lemon</string>
+    <string name="title">Little Lemon</string>
+    <string name="location">Chicago</string>
+    <string name="description">We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.</string>
+    <string name="order_button_text">Order Take Away</string>
+    <string name="order_delivery">ORDER FOR DELIVERY!</string>
+    <string name="add_for">Add for</string>
+    <string name="onboarding_header">Let\'s get to know you</string>
+    <string name="onboarding_personal">Personal information</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="email">Email</string>
+    <string name="register">Register</string>
+    <string name="logout">Log out</string>
+    <string name="starters">Starters</string>
+    <string name="mains">Mains</string>
+    <string name="desserts">Desserts</string>
+    <string name="drinks">Drinks</string>
+</resources>
