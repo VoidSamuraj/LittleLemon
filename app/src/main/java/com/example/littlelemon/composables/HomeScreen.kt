@@ -14,7 +14,7 @@ fun HomeScreen(navController: NavHostController) {
 
     Column {
         TopAppBar(navController)
-        UpperPanel()
+        UpperPanel(dishesState)
         LowerPanel(navController, dishesState)
     }
 }

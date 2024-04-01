@@ -3,13 +3,15 @@ package com.example.littlelemon
 import androidx.annotation.DrawableRes
 
 object DishRepository {
+    private var filterType: FilterType= FilterType.All
+    private var searchPhrase:String=""
     val dishes = listOf(
-        Dish(1,"Black tea", 3.00, "Drinks", "A traditional hot beverage made from steeping tea leaves.", R.drawable.black_tea),
-        Dish(2,"Green tea", 3.00, "Drinks", "A type of tea that is made from Camellia sinensis leaves and buds.", R.drawable.green_tea),
-        Dish(3,"Espresso", 5.00, "Drinks", "A concentrated form of coffee made by forcing hot water under pressure through finely-ground coffee beans.", R.drawable.espresso),
-        Dish(4,"Cappuccino", 8.00, "Drinks", "An espresso-based coffee drink that originated in Italy, prepared with double espresso, hot milk, and steamed milk foam.", R.drawable.cappuccino),
-        Dish(5,"Latte", 8.00, "Drinks", "A coffee drink made with espresso and steamed milk.", R.drawable.latte),
-        Dish(6,"Mocha", 10.00, "Drinks", "A type of coffee made from espresso and hot milk, often with added chocolate flavoring and sweeteners.", R.drawable.mocha),
+        Dish(1,"Black tea", 3.00, "Drink", "A traditional hot beverage made from steeping tea leaves.", R.drawable.black_tea),
+        Dish(2,"Green tea", 3.00, "Drink", "A type of tea that is made from Camellia sinensis leaves and buds.", R.drawable.green_tea),
+        Dish(3,"Espresso", 5.00, "Drink", "A concentrated form of coffee made by forcing hot water under pressure through finely-ground coffee beans.", R.drawable.espresso),
+        Dish(4,"Cappuccino", 8.00, "Drink", "An espresso-based coffee drink that originated in Italy, prepared with double espresso, hot milk, and steamed milk foam.", R.drawable.cappuccino),
+        Dish(5,"Latte", 8.00, "Drink", "A coffee drink made with espresso and steamed milk.", R.drawable.latte),
+        Dish(6,"Mocha", 10.00, "Drink", "A type of coffee made from espresso and hot milk, often with added chocolate flavoring and sweeteners.", R.drawable.mocha),
         Dish(7,"Boeuf bourguignon", 15.00, "Main", "A traditional French beef stew made with red wine, beef, onions, carrots, garlic, and mushrooms.", R.drawable.boeuf_bourguignon),
         Dish(8,"Bouillabaisse", 20.00, "Main", "A traditional Provençal fish stew originating from the port city of Marseille.", R.drawable.bouillabaisse),
         Dish(9,"Lasagna", 15.00, "Main", "A classic Italian dish made with layers of pasta, meat sauce, and cheese.", R.drawable.lasagna),
@@ -22,14 +24,22 @@ object DishRepository {
 
     fun getDish(id: Int) = dishes.firstOrNull { it.id == id }
 
-    fun filterBy(filter: FilterType): List<Dish>{
-        return when(filter){
-                FilterType.All -> dishes
-                FilterType.Dessert -> dishes.filter {it.category == "Dessert"}
-                FilterType.Drink -> dishes.filter {it.category == "Drink"  }
-                FilterType.Main -> dishes.filter {it.category == "Main"  }
-                FilterType.Starter -> dishes.filter {it.category == "Starter"  }
-            }
+    private fun filterRepo():List<Dish>{
+        return when(filterType){
+            FilterType.All -> dishes
+            FilterType.Dessert -> dishes.filter {it.category == "Dessert"}
+            FilterType.Drink -> dishes.filter {it.category == "Drink"  }
+            FilterType.Main -> dishes.filter {it.category == "Main"  }
+            FilterType.Starter -> dishes.filter {it.category == "Starter"  }
+        }.filter { it.name.contains(searchPhrase, ignoreCase = true)  }
+    }
+    fun getDishesFilteredBy(filter: FilterType): List<Dish>{
+        filterType= filter
+        return filterRepo()
+    }
+    fun getDishesFilteredBy(phrase:String):List<Dish>{
+        searchPhrase = phrase
+        return filterRepo()
     }
 
 }

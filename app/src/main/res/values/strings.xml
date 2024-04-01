@@ -17,4 +17,5 @@
     <string name="mains">Mains</string>
     <string name="desserts">Desserts</string>
     <string name="drinks">Drinks</string>
+    <string name="search_phrase">Enter search phrase</string>
 </resources>

@@ -54,6 +54,7 @@ fun PersonalInfo(buttonName:String,checkIfFieldsAreEmpty:Boolean, sharedPref: Sh
             shape = RoundedCornerShape(8.dp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             enabled = inputEnabled,
+            singleLine = true,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 20.dp)
@@ -66,6 +67,7 @@ fun PersonalInfo(buttonName:String,checkIfFieldsAreEmpty:Boolean, sharedPref: Sh
             shape = RoundedCornerShape(8.dp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             enabled = inputEnabled,
+            singleLine = true,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 20.dp)
@@ -78,6 +80,7 @@ fun PersonalInfo(buttonName:String,checkIfFieldsAreEmpty:Boolean, sharedPref: Sh
             shape = RoundedCornerShape(8.dp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
             enabled = inputEnabled,
+            singleLine = true,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 20.dp)

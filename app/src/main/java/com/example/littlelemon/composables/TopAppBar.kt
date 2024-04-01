@@ -32,7 +32,7 @@ fun TopAppBar( navController: NavHostController? = null) {
                 Image(
                     painter = painterResource(id = R.drawable.baseline_account_circle_24),
                     contentDescription = "Cart",
-                    modifier = Modifier.size(24.dp),
+                    modifier = Modifier.size(48.dp),
                     colorFilter = ColorFilter.tint(LittleLemonColor.green)
                 )
             }

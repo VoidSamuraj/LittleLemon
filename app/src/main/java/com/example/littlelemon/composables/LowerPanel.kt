@@ -14,6 +14,8 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,17 +26,19 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.littlelemon.Dish
 import com.example.littlelemon.DishRepository
+import com.example.littlelemon.FilterType
 import com.example.littlelemon.R
 import com.example.littlelemon.ui.theme.LittleLemonColor
-import com.example.littlelemon.ui.theme.Shapes
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 
 @Composable
 fun LowerPanel(navController: NavHostController, dishes: MutableStateFlow<List<Dish>>) {
-    Column {
-        SortOptions()
+    Column(Modifier.padding(horizontal = 10.dp )) {
+        SortOptions(dishes)
+        val dishesState by dishes.collectAsState()
         LazyColumn {
-            itemsIndexed(dishes.value) { _, dish ->
+            itemsIndexed(dishesState) { _, dish ->
                 MenuDish(navController, dish)
             }
         }
@@ -42,22 +46,25 @@ fun LowerPanel(navController: NavHostController, dishes: MutableStateFlow<List<D
 }
 
 @Composable
-fun SortOptions() {
-    Column( Modifier.padding(horizontal = 10.dp )) {
+fun SortOptions( dishes: MutableStateFlow<List<Dish>>) {
+    Column {
         Text(
             text = stringResource(R.string.order_delivery),
-            style = MaterialTheme.typography.h1,
+            style = MaterialTheme.typography.h2,
             modifier = Modifier
-                .padding(8.dp)
+                .padding(vertical= 8.dp)
         )
-        val elements = listOf(stringResource(id = R.string.starters), stringResource(id = R.string.mains), stringResource(id = R.string.desserts), stringResource(id = R.string.drinks))
+
+        val elements = listOf(FilterType.All, FilterType.Starter, FilterType.Main, FilterType.Dessert, FilterType.Drink)
         Row(
             Modifier
                 .fillMaxWidth()
                 .padding(top = 5.dp, bottom = 10.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-            elements.forEach{ name ->
-                myCard(text = name) {
-                    
+            elements.forEach{ filter ->
+                MyCard(text = filter.name) {
+                    dishes.update {
+                        DishRepository.getDishesFilteredBy(filter)
+                    }
                 }
             }
         }
@@ -67,11 +74,11 @@ fun SortOptions() {
 
 
 @Composable
-fun myCard(text:String, onClick:()->Unit){
+fun MyCard(text:String, onClick:()->Unit){
     Card(shape = RoundedCornerShape(10.dp), modifier = Modifier.clickable { onClick() }) {
         Text(text = text, modifier = Modifier
             .background(LittleLemonColor.lightGreen)
-            .padding(5.dp))
+            .padding(8.dp))
     }
 }
 
